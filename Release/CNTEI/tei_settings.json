@@ -1,0 +1,6 @@
+{
+  "filter_text_list": ["CN"],
+  "exclude_text_list": [],
+  "use_dialog_alert_for_errors": false,
+  "rebuild_invalid_xml": true
+}
