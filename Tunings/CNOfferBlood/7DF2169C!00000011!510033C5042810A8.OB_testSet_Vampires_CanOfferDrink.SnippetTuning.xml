@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<I c="TestSetInstance" i="snippet" m="event_testing.tests" n="OB_testSet_Vampires_CanOfferDrink" s="5836722038343471272">
+  <L n="test">
+    <L>
+      <V t="identity" />
+      <V t="sim_info">
+        <U n="sim_info">
+          <V n="ages" t="specified" />
+        </U>
+      </V>
+      <V t="sim_info">
+        <U n="sim_info">
+          <V n="ages" t="specified" />
+          <E n="who">TargetSim</E>
+        </U>
+      </V>
+      <V t="trait">
+        <U n="trait">
+          <L n="blacklist_traits">
+            <T>218444</T>
+          </L>
+          <E n="subject">Actor</E>
+        </U>
+      </V>
+      <V t="trait">
+        <U n="trait">
+          <L n="whitelist_traits">
+            <T>153867<!--trait_OccultVampire_Manifested--></T>
+          </L>
+          <E n="subject">TargetSim</E>
+        </U>
+      </V>
+      <V t="test_set_reference">
+        <T n="test_set_reference">101703<!--testSet_ActorIsNotGhost--></T>
+      </V>
+      <V t="buff">
+        <U n="buff">
+          <L n="blacklist">
+            <T>151177<!--buff_GarlicBraid_GarlicSickness_Level3--></T>
+          </L>
+          <E n="subject">TargetSim</E>
+          <V n="tooltip" t="enabled">
+            <T n="enabled">0xCD103A93<!--Cannot drink while overcome by garlic.--></T>
+          </V>
+        </U>
+      </V>
+      <V t="trait">
+        <U n="trait">
+          <L n="blacklist_traits">
+            <T>16851<!--trait_isGrimReaper--></T>
+          </L>
+          <E n="subject">Actor</E>
+          <V n="tooltip" t="enabled">
+            <T n="enabled">0x1489D09D<!--The Grim Reaper does not possess any plasma.--></T>
+          </V>
+        </U>
+      </V>
+      <V t="state">
+        <U n="state">
+          <E n="operator">LESS_OR_EQUAL</E>
+          <V n="tooltip" t="enabled">
+            <T n="enabled">0x419F6E7E<!--Cannot drink from pregnant Sims.--></T>
+          </V>
+          <T n="value">15300<!--Pregnant_NotShowing--></T>
+          <E n="who">Actor</E>
+        </U>
+      </V>
+      <V t="trait">
+        <U n="trait">
+          <L n="blacklist_traits">
+            <T>153867<!--trait_OccultVampire_Manifested--></T>
+          </L>
+          <E n="subject">Actor</E>
+          <V n="tooltip" t="enabled">
+            <T n="enabled">0x7C7C53F2<!--Cannot drink from another vampire.--></T>
+          </V>
+        </U>
+      </V>
+      <V t="buff">
+        <U n="buff">
+          <L n="blacklist">
+            <T>152829<!--buff_Vampire_SpiritPowers_RestoreLifeSpirit--></T>
+          </L>
+          <E n="subject">Actor</E>
+          <V n="tooltip" t="enabled">
+            <T n="enabled">0x130BFD3E<!--This Sim recently had their life spirit restored.--></T>
+          </V>
+        </U>
+      </V>
+      <V t="buff">
+        <U n="buff">
+          <L n="blacklist">
+            <T>154327<!--buff_Vampire_UnwillingSnack--></T>
+          </L>
+          <E n="subject">Actor</E>
+          <V n="tooltip" t="enabled">
+            <T n="enabled">0x6B5429AE<!--This Sim recently resisted being drank from.--></T>
+          </V>
+        </U>
+      </V>
+      <V t="buff">
+        <U n="buff">
+          <L n="blacklist">
+            <T>150749<!--buff_Vampire_RecentlyBitten--></T>
+            <T>151763<!--buff_Vampire_RecentlyBitten_Strength2--></T>
+            <T>151764<!--buff_Vampire_RecentlyBitten_Strength3--></T>
+            <T>156797<!--buff_Vampire_RecentlyBitten_WithPermission--></T>
+          </L>
+          <E n="subject">Actor</E>
+          <V n="tooltip" t="enabled">
+            <T n="enabled">0xE1522C46<!--This Sim has been drank from recently.--></T>
+          </V>
+        </U>
+      </V>
+      <V t="buff">
+        <U n="buff">
+          <L n="blacklist">
+            <T>175971<!--buff_Skeleton--></T>
+          </L>
+          <E n="subject">Actor</E>
+          <V n="tooltip" t="enabled">
+            <T n="enabled">0x99ED044B<!--This Sim has no plasma right now!--></T>
+          </V>
+        </U>
+      </V>
+      <V t="test_set_reference">
+        <T n="test_set_reference">214011<!--testSet_InWater_NotInWater_TargetSim_Tooltip--></T>
+      </V>
+    </L>
+  </L>
+</I>
