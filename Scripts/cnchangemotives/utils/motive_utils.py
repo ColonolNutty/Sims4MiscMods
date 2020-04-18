@@ -8,6 +8,7 @@ Copyright (c) COLONOLNUTTY
 """
 from typing import Tuple, List
 
+from cnchangemotives.enums.string_ids import CMStringId
 from cnchangemotives.modinfo import ModInfo
 from sims.sim_info import SimInfo
 from sims4communitylib.enums.enumtypes.string_enum import CommonEnumStringBase
@@ -29,16 +30,16 @@ class CMMotive(CommonEnumStringBase):
     HUNGER = 'hunger'
     HYGIENE = 'hygiene'
     SOCIAL = 'social'
-    VAMPIRE_POWER = 'vampire_power'
-    VAMPIRE_THIRST = 'vampire_thirst'
-    PLANT_SIM_WATER = 'plant_sim_water'
-    SERVO_DURABILITY = 'servo_durability'
-    SERVO_CHARGE = 'servo_charge'
+    VAMPIRE_POWER = 'vampire_energy'
+    VAMPIRE_THIRST = 'thirst'
+    PLANT_SIM_WATER = 'water'
+    SERVO_DURABILITY = 'durability'
+    SERVO_CHARGE = 'charge'
 
 
 class CMMotiveUtils(CommonService, HasLog):
     """ Utilities for Motives. """
-    MOTIVE_MAPPINGS = {
+    _MOTIVE_MAPPINGS = {
         CMMotive.ENERGY: CommonMotiveId.ENERGY,
         CMMotive.BLADDER: CommonMotiveId.BLADDER,
         CMMotive.FUN: CommonMotiveId.FUN,
@@ -50,6 +51,20 @@ class CMMotiveUtils(CommonService, HasLog):
         CMMotive.PLANT_SIM_WATER: CommonMotiveId.PLANT_SIM_WATER,
         CMMotive.SERVO_DURABILITY: CommonMotiveId.SERVO_DURABILITY,
         CMMotive.SERVO_CHARGE: CommonMotiveId.SERVO_CHARGE
+    }
+
+    _MOTIVE_STRING_MAPPINGS = {
+        CMMotive.ENERGY: CMStringId.ENERGY,
+        CMMotive.BLADDER: CMStringId.BLADDER,
+        CMMotive.FUN: CMStringId.FUN,
+        CMMotive.HUNGER: CMStringId.HUNGER,
+        CMMotive.HYGIENE: CMStringId.HYGIENE,
+        CMMotive.SOCIAL: CMStringId.SOCIAL,
+        CMMotive.VAMPIRE_POWER: CMStringId.VAMPIRE_ENERGY,
+        CMMotive.VAMPIRE_THIRST: CMStringId.THIRST,
+        CMMotive.PLANT_SIM_WATER: CMStringId.WATER,
+        CMMotive.SERVO_DURABILITY: CMStringId.DURABILITY,
+        CMMotive.SERVO_CHARGE: CMStringId.CHARGE
     }
 
     # noinspection PyMissingOrEmptyDocstring
@@ -91,7 +106,7 @@ class CMMotiveUtils(CommonService, HasLog):
             if not CommonSpeciesUtils.is_pet(sim_info):
                 return False
             return True
-        return motive_name in CMMotiveUtils.MOTIVE_MAPPINGS
+        return motive_name in CMMotiveUtils._MOTIVE_MAPPINGS
 
     def get_motive_level(self, sim_info: SimInfo, motive_name: str) -> float:
         """ Retrieve the current level of a Motive for a Sim. """
@@ -118,6 +133,14 @@ class CMMotiveUtils(CommonService, HasLog):
             trimmed_result.append(motive.replace('CMMotive.', '').lower())
         return tuple(trimmed_result)
 
+    def get_motive_string(self, sim_info: SimInfo, motive_name: str) -> int:
+        """ Retrieve a String for a motive. """
+        if motive_name == CMMotive.HYGIENE and CommonOccultUtils.is_mermaid(sim_info):
+            return CMStringId.HYDRATION
+        if motive_name not in CMMotiveUtils._MOTIVE_STRING_MAPPINGS:
+            return -1
+        return CMMotiveUtils._MOTIVE_STRING_MAPPINGS[motive_name]
+
     def _translate_motive(self, sim_info: SimInfo, motive_name: str) -> int:
         if motive_name == CMMotive.BOWEL:
             if CommonSpeciesUtils.is_dog(sim_info):
@@ -126,4 +149,4 @@ class CMMotiveUtils(CommonService, HasLog):
                 return CommonMotiveId.PET_CAT_BOWEL
             return -1
         else:
-            return CMMotiveUtils.MOTIVE_MAPPINGS[motive_name]
+            return CMMotiveUtils._MOTIVE_MAPPINGS[motive_name]

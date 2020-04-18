@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<I c="CMChangeMotivesInteraction" i="interaction" m="cnchangemotives.interactions.change_motives" n="CM_Change_Motives" s="2044392572467638480">
+  <V n="_saveable" t="disabled" />
+  <T n="cheat">True</T>
+  <T n="debug">True</T>
+  <L n="interaction_category_tags">
+    <E>INVALID</E>
+  </L>
+  <T n="category">0</T>
+  <T n="display_name">0x1D80DE48<!--Change Motives--></T>
+  <T n="pie_menu_priority">9</T>
+  <U n="progress_bar_enabled">
+    <T n="bar_enabled">False</T>
+  </U>
+  <E n="target_type">OBJECT</E>
+</I>

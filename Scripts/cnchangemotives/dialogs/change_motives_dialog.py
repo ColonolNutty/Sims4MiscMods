@@ -23,6 +23,7 @@ from sims4communitylib.dialogs.option_dialogs.options.objects.common_dialog_inpu
 from sims4communitylib.logging.has_log import HasLog
 from sims4communitylib.mod_support.mod_identity import CommonModIdentity
 from sims4communitylib.services.common_service import CommonService
+from sims4communitylib.utils.localization.common_localization_utils import CommonLocalizationUtils
 from sims4communitylib.utils.sims.common_sim_name_utils import CommonSimNameUtils
 
 
@@ -70,7 +71,7 @@ class CMChangeMotivesDialog(CommonService, HasLog):
 
             CommonOkCancelDialog(
                 CMStringId.CONFIRMATION,
-                CMStringId.SET_ALL_MOTIVES_MIN_CONFIRMATION,
+                CMStringId.SET_ALL_MOTIVE_LEVELS_TO_MINIMUM_CONFIRMATION,
                 description_tokens=(sim_info,),
                 mod_identity=self.mod_identity
             ).show(on_ok_selected=_on_confirm, on_cancel_selected=_on_cancel)
@@ -88,7 +89,7 @@ class CMChangeMotivesDialog(CommonService, HasLog):
         option_dialog.add_option(
             CommonDialogActionOption(
                 CommonDialogOptionContext(
-                    CMStringId.SET_ALL_MOTIVES_MIN,
+                    CMStringId.SET_ALL_MOTIVE_LEVELS_TO_MINIMUM,
                     0,
                 ),
                 on_chosen=lambda *_, **__: _on_min_all_motives(),
@@ -99,7 +100,7 @@ class CMChangeMotivesDialog(CommonService, HasLog):
         option_dialog.add_option(
             CommonDialogActionOption(
                 CommonDialogOptionContext(
-                    CMStringId.SET_ALL_MOTIVES_MAX,
+                    CMStringId.SET_ALL_MOTIVE_LEVELS_TO_MAXIMUM,
                     0,
                 ),
                 on_chosen=lambda *_, **__: _on_max_all_motives(),
@@ -113,18 +114,24 @@ class CMChangeMotivesDialog(CommonService, HasLog):
             if motive_name is None:
                 return
 
+            motive_string_id = CMMotiveUtils().get_motive_string(sim_info, motive_name)
+            if motive_string_id == -1:
+                motive_string_id = motive_name.upper()
+
             option_dialog.add_option(
                 CommonDialogInputFloatOption(
                     motive_name,
                     self.motive_utils.get_motive_level(sim_info, motive_name),
                     CommonDialogOptionContext(
-                        motive_name.upper(),
-                        0,
+                        motive_string_id,
+                        CMStringId.SET_MOTIVE_LEVEL_OF_SIM,
+                        description_tokens=(motive_string_id, sim_info)
                     ),
                     min_value=-100.0,
                     max_value=100.0,
                     on_chosen=_on_slider_changed,
-                    dialog_description_identifier=CMStringId.SET_LEVEL_OF_MOTIVE
+                    dialog_description_identifier=CMStringId.MIN_AND_MAX,
+                    dialog_description_tokens=(CommonLocalizationUtils.create_localized_string(CMStringId.SET_MOTIVE_LEVEL_OF_SIM, tokens=(motive_string_id, sim_info)),)
                 )
             )
 
