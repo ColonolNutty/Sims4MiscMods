@@ -20,17 +20,20 @@ from sims4communitylib.dialogs.option_dialogs.options.objects.common_dialog_acti
     CommonDialogActionOption
 from sims4communitylib.dialogs.option_dialogs.options.objects.common_dialog_input_option import \
     CommonDialogInputFloatOption
+from sims4communitylib.exceptions.common_exceptions_handler import CommonExceptionHandler
 from sims4communitylib.logging.has_log import HasLog
 from sims4communitylib.mod_support.mod_identity import CommonModIdentity
 from sims4communitylib.services.common_service import CommonService
+from sims4communitylib.utils.common_function_utils import CommonFunctionUtils
 from sims4communitylib.utils.localization.common_localization_utils import CommonLocalizationUtils
 from sims4communitylib.utils.sims.common_sim_name_utils import CommonSimNameUtils
 
 
 class CMChangeMotivesDialog(CommonService, HasLog):
     """ A dialog for changing Sim motives. """
-    def __init__(self) -> None:
+    def __init__(self, on_close: Callable[..., Any]=CommonFunctionUtils.noop) -> None:
         super().__init__()
+        self._on_close = on_close
         self.motive_utils = CMMotiveUtils()
 
     # noinspection PyMissingOrEmptyDocstring
@@ -43,13 +46,22 @@ class CMChangeMotivesDialog(CommonService, HasLog):
     def log_identifier(self) -> str:
         return 'cm_change_motives_dialog'
 
-    def open(self, sim_info: SimInfo, on_close: Callable[..., Any]=None) -> None:
-        """ Open the dialog. """
+    def open(self, sim_info: SimInfo):
+        """ Open the Change Motives dialog. """
         self.log.debug('Opening change motives dialog for \'{}\'.'.format(CommonSimNameUtils.get_full_name(sim_info)))
+        dialog = self._settings(sim_info)
+        if dialog is None:
+            return
+        dialog.show(sim_info=sim_info)
+
+    @CommonExceptionHandler.catch_exceptions(ModInfo.get_identity(), fallback_return=None)
+    def _settings(self, sim_info: SimInfo) -> CommonChooseObjectOptionDialog:
+        self.log.debug('Building change motives dialog for \'{}\'.'.format(CommonSimNameUtils.get_full_name(sim_info)))
 
         def _on_close() -> None:
-            if on_close is not None:
-                on_close()
+            self.log.debug('CM dialog closed.')
+            if self._on_close is not None:
+                self._on_close()
 
         option_dialog = CommonChooseObjectOptionDialog(
             CMStringId.CHANGE_MOTIVES,
@@ -59,15 +71,20 @@ class CMChangeMotivesDialog(CommonService, HasLog):
         )
 
         def _reopen_dialog() -> None:
-            self.open(sim_info, on_close=on_close)
+            self.log.debug('Reopening CM dialog.')
+            self.open(sim_info)
 
         def _on_min_all_motives() -> None:
             def _on_confirm(_) -> None:
+                self.log.debug('Setting all motives to their minimum! Sim Death incoming!')
                 self.motive_utils.min_all_motives(sim_info)
                 _reopen_dialog()
 
             def _on_cancel(_) -> None:
+                self.log.debug('Cancelled setting all motives to minimum. That was a close one!')
                 _reopen_dialog()
+
+            self.log.debug('Showing confirmation for setting all motives to minimum.')
 
             CommonOkCancelDialog(
                 CMStringId.CONFIRMATION,
@@ -77,12 +94,15 @@ class CMChangeMotivesDialog(CommonService, HasLog):
             ).show(on_ok_selected=_on_confirm, on_cancel_selected=_on_cancel)
 
         def _on_max_all_motives() -> None:
+            self.log.debug('Setting all motives to their maximum.')
             self.motive_utils.max_all_motives(sim_info)
 
-        def _on_slider_changed(chosen_motive_name: str, amount: float, outcome: CommonChoiceOutcome):
+        def _on_changed(chosen_motive_name: str, amount: float, outcome: CommonChoiceOutcome):
             if chosen_motive_name is None or amount is None or CommonChoiceOutcome.is_error_or_cancel(outcome):
+                self.log.debug('Cancelled changing motive level.')
                 _reopen_dialog()
                 return
+            self.log.debug('Changing motive \'{}\' to amount {}'.format(chosen_motive_name, amount))
             self.motive_utils.change_motive_level(sim_info, chosen_motive_name, amount)
             _reopen_dialog()
 
@@ -112,12 +132,13 @@ class CMChangeMotivesDialog(CommonService, HasLog):
         sorted_motive_names = sorted(motive_names, key=lambda s: s)
         for motive_name in sorted_motive_names:
             if motive_name is None:
-                return
+                continue
 
             motive_string_id = CMMotiveUtils().get_motive_string(sim_info, motive_name)
             if motive_string_id == -1:
                 motive_string_id = motive_name.upper()
 
+            # noinspection PyTypeChecker
             option_dialog.add_option(
                 CommonDialogInputFloatOption(
                     motive_name,
@@ -129,10 +150,10 @@ class CMChangeMotivesDialog(CommonService, HasLog):
                     ),
                     min_value=-100.0,
                     max_value=100.0,
-                    on_chosen=_on_slider_changed,
+                    on_chosen=_on_changed,
                     dialog_description_identifier=CMStringId.MIN_AND_MAX,
                     dialog_description_tokens=(CommonLocalizationUtils.create_localized_string(CMStringId.SET_MOTIVE_LEVEL_OF_SIM, tokens=(motive_string_id, sim_info)),)
                 )
             )
 
-        option_dialog.show(sim_info=sim_info)
+        return option_dialog
