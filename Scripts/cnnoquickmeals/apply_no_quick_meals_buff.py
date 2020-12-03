@@ -46,5 +46,4 @@ class NQMBuffUtils(CommonService, HasLog):
     @staticmethod
     @CommonEventRegistry.handle_events(ModInfo.get_identity())
     def _apply_buffs_on_zone_load(event_data: S4CLZoneLateLoadEvent) -> bool:
-        NQMBuffUtils().log.enable()
         return NQMBuffUtils().apply_no_quick_meals_buff()
