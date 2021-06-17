@@ -7,3 +7,4 @@ compile_module(root='..\\Release\\CNTEI', mod_scripts_folder='.', include_folder
 compile_module(root='..\\Release\\CNNoQuickMeals', mod_scripts_folder='.', include_folders=('cnnoquickmeals',), mod_name='cn_no_quick_meals')
 compile_module(root='..\\Release\\CNOfferBlood', mod_scripts_folder='.', include_folders=('cnofferblood',), mod_name='cn_offer_blood')
 compile_module(root='..\\Release\\CNChangeMotives', mod_scripts_folder='.', include_folders=('cnchangemotives',), mod_name='cn_change_motives')
+compile_module(root='..\\Release\\S4AutosaveMod', mod_scripts_folder='.', include_folders=('s4autosavemod',), mod_name='s4autosavemod')

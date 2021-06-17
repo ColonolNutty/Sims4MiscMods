@@ -16,6 +16,8 @@ def _hkh_check_if_nice_interaction(event_data: S4CLInteractionQueuedEvent):
         return True
     sim_info = CommonSimUtils.get_sim_info(interaction_sim)
     target_sim_info = CommonSimUtils.get_sim_info(interaction_target)
+    if event_data.interaction.is_user_directed:
+        return True
     friendship_track = CommonRelationshipUtils.get_relationship_level_of_sims(sim_info, target_sim_info, CommonRelationshipTrackId.FRIENDSHIP)
     if friendship_track > -50.0:
         return True
