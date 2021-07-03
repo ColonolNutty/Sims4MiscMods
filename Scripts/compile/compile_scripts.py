@@ -1,10 +1,13 @@
-from Utilities.compiler import compile_module
+import os
+from Utilities.unpyc3_compiler import Unpyc3PythonCompiler
 
-compile_module(root='..\\Release\\CNHaterKeepHatin', mod_scripts_folder='.', include_folders=('cnhaterskeephatin',), mod_name='cn_haters_keep_hatin')
-compile_module(root='..\\Release\\CNRealisticSalaries', mod_scripts_folder='.', include_folders=('cnrealisticsalaries',), mod_name='cn_realistic_salaries')
-compile_module(root='..\\Release\\CNNoRelationshipDecay', mod_scripts_folder='.', include_folders=('cnnorelationshipdecay',), mod_name='cn_no_relationship_decay')
-compile_module(root='..\\Release\\CNTEI', mod_scripts_folder='.', include_folders=('cntei',), mod_name='cn_tei')
-compile_module(root='..\\Release\\CNNoQuickMeals', mod_scripts_folder='.', include_folders=('cnnoquickmeals',), mod_name='cn_no_quick_meals')
-compile_module(root='..\\Release\\CNOfferBlood', mod_scripts_folder='.', include_folders=('cnofferblood',), mod_name='cn_offer_blood')
-compile_module(root='..\\Release\\CNChangeMotives', mod_scripts_folder='.', include_folders=('cnchangemotives',), mod_name='cn_change_motives')
-compile_module(root='..\\Release\\S4AutosaveMod', mod_scripts_folder='.', include_folders=('s4autosavemod',), mod_name='s4autosavemod')
+release_dir = os.path.join('..', '..', 'Release')
+
+Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'CNHaterKeepHatin'), names_of_modules_include=('cnhaterskeephatin',), output_ts4script_name='cn_haters_keep_hatin')
+Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'CNRealisticSalaries'), names_of_modules_include=('cnrealisticsalaries',), output_ts4script_name='cn_realistic_salaries')
+Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'CNNoRelationshipDecay'), names_of_modules_include=('cnnorelationshipdecay',), output_ts4script_name='cn_no_relationship_decay')
+Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'CNTEI'), names_of_modules_include=('cntei',), output_ts4script_name='cn_tei')
+Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'CNNoQuickMeals'), names_of_modules_include=('cnnoquickmeals',), output_ts4script_name='cn_no_quick_meals')
+Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'CNOfferBlood'), names_of_modules_include=('cnofferblood',), output_ts4script_name='cn_offer_blood')
+Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'CNChangeMotives'), names_of_modules_include=('cnchangemotives',), output_ts4script_name='cn_change_motives')
+Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'S4AutosaveMod'), names_of_modules_include=('s4autosavemod',), output_ts4script_name='s4autosavemod')
