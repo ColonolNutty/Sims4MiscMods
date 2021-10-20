@@ -1,5 +1,5 @@
 """
-This file is part of the S4 Autosave Mod licensed under the Creative Commons Attribution-NoDerivatives 4.0 International public license (CC BY-ND 4.0).
+This file is part of Pause On Zone Load licensed under the Creative Commons Attribution-NoDerivatives 4.0 International public license (CC BY-ND 4.0).
 
 https://creativecommons.org/licenses/by-nd/4.0/
 https://creativecommons.org/licenses/by-nd/4.0/legalcode
@@ -15,7 +15,7 @@ class ModInfo(CommonModInfo):
 
     @property
     def _name(self) -> str:
-        return 'AutosaveMod'
+        return 'Pause On Zone Load'
 
     @property
     def _author(self) -> str:
@@ -23,7 +23,7 @@ class ModInfo(CommonModInfo):
 
     @property
     def _base_namespace(self) -> str:
-        return 's4autosavemod'
+        return 'cnpauseonzoneload'
 
     @property
     def _file_path(self) -> str:

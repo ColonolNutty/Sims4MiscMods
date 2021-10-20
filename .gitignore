@@ -53,3 +53,4 @@ custom_scripts_for_decompile/**/*.py
 Tunings/Temp
 Libraries/**/*
 EA_Tuning/**/*
+Libraries
