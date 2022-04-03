@@ -12,3 +12,4 @@ Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join
 Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'CNChangeMotives'), names_of_modules_include=('cnchangemotives',), output_ts4script_name='cn_change_motives')
 Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'S4AutosaveMod'), names_of_modules_include=('s4autosavemod',), output_ts4script_name='s4autosavemod')
 Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'CNPauseOnZoneLoad'), names_of_modules_include=('cnpauseonzoneload',), output_ts4script_name='cn_pause_on_zone_load')
+Unpyc3PythonCompiler.compile_mod(folder_path_to_output_ts4script_to=os.path.join(release_dir, 'CNNoSitWhileChat'), names_of_modules_include=('no_sit_while_chat',), output_ts4script_name='no_sit_while_chat')
